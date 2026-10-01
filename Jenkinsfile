@@ -11,27 +11,23 @@ stages {
 
     stage('Check Node') {
         steps {
-            bat '''
-                echo Checking Node.js...
-                node --version
-                npm --version
-            '''
+            bat 'node --version'
+            bat 'npm --version'
         }
     }
 
     stage('Install Backend Dependencies') {
         steps {
             bat '''
-                echo Installing backend dependencies...
                 if exist backend (
                     cd backend
                     if exist package.json (
                         npm install
                     ) else (
-                        echo No backend package.json found.
+                        echo No backend package.json found
                     )
                 ) else (
-                    echo Backend folder not found.
+                    echo Backend folder not found
                 )
             '''
         }
@@ -40,16 +36,15 @@ stages {
     stage('Test Backend') {
         steps {
             bat '''
-                echo Testing backend...
                 if exist backend (
                     cd backend
                     if exist package.json (
                         npm test
                     ) else (
-                        echo No backend package.json found.
+                        echo No backend package.json found
                     )
                 ) else (
-                    echo Backend folder not found.
+                    echo Backend folder not found
                 )
             '''
         }
@@ -58,16 +53,15 @@ stages {
     stage('Install Frontend Dependencies') {
         steps {
             bat '''
-                echo Installing frontend dependencies...
                 if exist frontend (
                     cd frontend
                     if exist package.json (
                         npm install
                     ) else (
-                        echo No frontend package.json found.
+                        echo No frontend package.json found
                     )
                 ) else (
-                    echo Frontend folder not found.
+                    echo Frontend folder not found
                 )
             '''
         }
@@ -76,16 +70,15 @@ stages {
     stage('Test Frontend') {
         steps {
             bat '''
-                echo Testing frontend...
                 if exist frontend (
                     cd frontend
                     if exist package.json (
                         npm test
                     ) else (
-                        echo No frontend package.json found.
+                        echo No frontend package.json found
                     )
                 ) else (
-                    echo Frontend folder not found.
+                    echo Frontend folder not found
                 )
             '''
         }
@@ -94,16 +87,15 @@ stages {
     stage('Build Frontend') {
         steps {
             bat '''
-                echo Building frontend...
                 if exist frontend (
                     cd frontend
                     if exist package.json (
                         npm run build
                     ) else (
-                        echo No frontend package.json found.
+                        echo No frontend package.json found
                     )
                 ) else (
-                    echo Frontend folder not found.
+                    echo Frontend folder not found
                 )
             '''
         }
@@ -116,7 +108,7 @@ post {
     }
 
     success {
-        echo 'Build and tests completed successfully!'
+        echo 'Build completed successfully!'
     }
 
     failure {
